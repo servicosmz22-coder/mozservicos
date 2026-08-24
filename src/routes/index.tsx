@@ -1,24 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowRight, BriefcaseBusiness, CheckCircle2, MapPin, Search, ShieldCheck, Star, Users } from 'lucide-react';
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
+export const Route = createFileRoute('/')({ component: LandingPage });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+function Logo() {
+  return <div className="flex items-center gap-2 text-xl font-extrabold tracking-tight"><span className="grid size-9 place-items-center rounded-xl bg-[#00A651] text-white">S</span><span>Serviço<span className="text-[#00A651]">Moz</span></span></div>;
+}
+
+function Feature({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
+  return <div className="rounded-2xl border bg-white p-6 shadow-sm"><div className="grid size-11 place-items-center rounded-xl bg-[#00A651]/10 text-[#00A651]">{icon}</div><h3 className="mt-5 text-lg font-bold">{title}</h3><p className="mt-2 leading-6 text-[#6B7280]">{text}</p></div>;
+}
+
+function LandingPage() {
+  return <main className="min-h-screen bg-[#F8F9FA] text-[#1A1A1A]">
+    <header className="sticky top-0 z-20 border-b bg-white/90 backdrop-blur"><div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4"><Logo/><div className="flex items-center gap-2"><Link to="/login" className="rounded-lg px-4 py-2 text-sm font-semibold hover:bg-gray-100">Entrar</Link><Link to="/register" className="rounded-lg bg-[#00A651] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#008f45]">Criar conta</Link></div></div></header>
+    <section className="bg-white"><div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 md:grid-cols-2 md:items-center md:py-24"><div><div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#00A651]/10 px-3 py-1.5 text-sm font-semibold text-[#008f45]"><MapPin size={15}/> Moçambique</div><h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">O talento moçambicano <span className="text-[#00A651]">ao teu alcance.</span></h1><p className="mt-5 max-w-xl text-lg leading-8 text-[#6B7280]">Descobre profissionais de confiança perto de ti, conhece o seu trabalho e entra directamente em contacto para contratar.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row"><Link to="/register" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00A651] px-6 py-3.5 font-bold text-white shadow-lg shadow-[#00A651]/20">Começar agora <ArrowRight size={18}/></Link><Link to="/login" className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3.5 font-bold">Já tenho conta</Link></div><div className="mt-8 flex flex-wrap gap-5 text-sm text-[#6B7280]"><span className="flex items-center gap-2"><CheckCircle2 className="text-[#00A651]" size={18}/> Clientes grátis</span><span className="flex items-center gap-2"><ShieldCheck className="text-blue-500" size={18}/> Perfis verificados</span></div></div><div className="rounded-3xl bg-gradient-to-br from-[#00A651] to-[#007c3d] p-6 text-white shadow-2xl shadow-[#00A651]/20 md:p-8"><div className="rounded-2xl bg-white/10 p-5 backdrop-blur"><div className="flex items-center justify-between"><div><p className="text-sm text-white/70">Encontra o profissional certo</p><h2 className="mt-1 text-2xl font-bold">O que precisas hoje?</h2></div><Search size={28}/></div><div className="mt-5 rounded-xl bg-white px-4 py-3 text-sm text-gray-400">Pesquisar serviço, profissional ou cidade...</div><div className="mt-4 grid grid-cols-2 gap-3"><div className="rounded-xl bg-white/10 p-4"><BriefcaseBusiness size={21}/><p className="mt-3 font-semibold">Serviços</p><p className="mt-1 text-xs text-white/60">Encontra especialistas</p></div><div className="rounded-xl bg-white/10 p-4"><Users size={21}/><p className="mt-3 font-semibold">Profissionais</p><p className="mt-1 text-xs text-white/60">Talento perto de ti</p></div></div></div></div></div></section>
+    <section className="mx-auto max-w-6xl px-4 py-16"><div className="text-center"><p className="font-bold text-[#00A651]">COMO FUNCIONA</p><h2 className="mt-2 text-3xl font-extrabold">Tudo num só lugar</h2></div><div className="mt-10 grid gap-5 md:grid-cols-3"><Feature icon={<Search/>} title="Descobre" text="Pesquisa por categoria, localização, preço e disponibilidade."/><Feature icon={<Star/>} title="Confia" text="Consulta avaliações, experiência, badges e profissionais verificados."/><Feature icon={<Users/>} title="Contacta" text="Fala directamente com o profissional por WhatsApp ou pela plataforma."/></div></section>
+    <footer className="border-t bg-white"><div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-[#6B7280] sm:flex-row sm:items-center sm:justify-between"><Logo/><span>© {new Date().getFullYear()} ServiçoMoz. O talento moçambicano ao teu alcance.</span></div></footer>
+  </main>;
 }
